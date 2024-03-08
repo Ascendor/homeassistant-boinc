@@ -1,0 +1,3 @@
+"""BOINC constants."""
+
+DOMAIN = "boinc"

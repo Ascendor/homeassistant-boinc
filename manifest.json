@@ -1,0 +1,11 @@
+{
+  "domain": "boinc",
+  "name": "Boinc Remote Control",
+  "codeowners": ["@Ascendor"],
+  "config_flow": false,
+  "dependencies": [],
+  "documentation": "https://www.home-assistant.io/integrations/boinc",
+  "iot_class": "local_polling",
+  "requirements": ["boinc-client==1.10.0"],
+  "version": "0.1.0"
+}
