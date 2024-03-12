@@ -22,7 +22,7 @@ class BoincRemote(RemoteEntity):
         try:
             self.boinc_client = self.create_boinc_client()
         except Exception as e:
-                self.logger.warning("Couldn't connect. Retrying when needed.")
+            self.logger.warning("Couldn't connect. Retrying when needed.")
 
     def create_boinc_client(self):
         self.rpc_client = RpcClient(hostname=self.host, port=self.port, password=self.api_key)
@@ -58,7 +58,7 @@ class BoincRemote(RemoteEntity):
         except Exception as e:
             self.logger.warning(e)
             self._attr_is_on = False
-#            self.reconnect_client()
+            self.reconnect_client()
 
     async def async_send_command(self, command: Iterable[str], **kwargs):
         """Send commands to a device."""
