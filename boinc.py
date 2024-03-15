@@ -12,22 +12,26 @@ class BoincRemote(RemoteEntity):
 
     def __init__(self, host, name, port, api_key, logger) -> None:
         """__init__ takes Hostname, Port and API-Key of the to-be-controlled BOINC PC, plus a free name and a logger."""
+        # Hostname or IP of the running BOINC client
         self.host = host
         self._name = name
         self.port = port
         self.api_key = api_key
         self.logger = logger
-        # Hostname or IP of the running BOINC client
         # Create an RPC client to connect to the BOINC socket
-        try:
-            self.boinc_client = self.create_boinc_client()
-        except Exception as e:
-            self.logger.warning("Couldn't connect. Retrying when needed.")
+        self.boinc_client = self.create_boinc_client()
 
     def create_boinc_client(self):
-        self.rpc_client = RpcClient(hostname=self.host, port=self.port, password=self.api_key)
-        self.rpc_client.authenticate()
-        return Boinc(rpc_client=self.rpc_client)
+        boinc_client =  None
+        try:
+            rpc_client = RpcClient(hostname=self.host, port=self.port, password=self.api_key)
+            rpc_client.authenticate()
+            boinc_client = Boinc(rpc_client=rpc_client)
+        except ConnectionError as conn_ex:
+            self.logger.error(f"Failed to connect to Boinc: {conn_ex}")
+        except Exception as e:
+            self.logger.error(f"Something went really wrong with Boinc: {e}")
+        return boinc_client
 
     def reconnect_client(self):
         self.logger.info("Recycling RPC client")
