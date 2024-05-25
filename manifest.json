@@ -6,6 +6,6 @@
   "dependencies": [],
   "documentation": "https://www.home-assistant.io/integrations/boinc",
   "iot_class": "local_polling",
-  "requirements": ["boinc-client==1.11.0"],
+  "requirements": ["boinc-client==1.12.1"],
   "version": "0.1.0"
 }
